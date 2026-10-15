@@ -11,7 +11,7 @@ const FILES = {
   b: { path: join(SCRIPT_DIR, "b.md"), name: "BACKLOG" },
   c: { path: join(SCRIPT_DIR, "c.md"), name: "COMPLETED" },
   d: { path: join(SCRIPT_DIR, "d.md"), name: "DELETED" },
-  g: { path: join(SCRIPT_DIR, "g.md"), name: "GOALS" },
+  e: { path: join(SCRIPT_DIR, "e.md"), name: "GOALS" },
 };
 
 type FileKey = keyof typeof FILES;
@@ -329,13 +329,13 @@ alias fa='vim ${FILES.a.path}'
 alias fb='vim ${FILES.b.path}'
 alias fc='vim ${FILES.c.path}'
 alias fd='vim ${FILES.d.path}'
-alias fg='vim ${FILES.g.path}'
+alias fe='vim ${FILES.e.path}'
 a() { [[ $# -eq 0 ]] && bun ${scriptPath} show a || bun ${scriptPath} add a "$@"; }
 b() { [[ $# -eq 0 ]] && bun ${scriptPath} show b || bun ${scriptPath} add b "$@"; }
 c() { [[ $# -eq 0 ]] && bun ${scriptPath} show c || bun ${scriptPath} complete "$@"; }
 d() { [[ $# -eq 0 ]] && bun ${scriptPath} show d || bun ${scriptPath} delete "$@"; }
 s() { [[ $# -eq 0 ]] && bun ${scriptPath} stats || bun ${scriptPath} split "$@"; }
-alias g='bun ${scriptPath} show g'
+alias e='bun ${scriptPath} show e'
 alias r='bun ${scriptPath} refresh'
 `;
 
@@ -354,7 +354,7 @@ function showHelp(warning?: string): void {
 Usage: bun fun.ts <command> [args]
 
 Commands:
-  show <a|b|c|d|g>    Show tasks from file
+  show <a|b|c|d|e>    Show tasks from file
   add <a|b> <title>   Add task to active/backlog
   complete <n>        Mark task n as completed
   delete <n>          Delete task n
@@ -364,8 +364,8 @@ Commands:
   init                Initialize files and shell aliases
 
 Aliases (after init):
-  a, b, c, d, g       Show corresponding file
-  fa, fb, fc, fd, fg  Edit in vim
+  a, b, c, d, e       Show corresponding file
+  fa, fb, fc, fd, fe  Edit in vim
   a <title>           Add to active
   b <title>           Add to backlog
   c <n>               Complete task
@@ -411,8 +411,8 @@ async function main(): Promise<void> {
 
   switch (command) {
     case "show":
-      if (!rest[0] || !["a", "b", "c", "d", "g"].includes(rest[0])) {
-        error("Usage: show <a|b|c|d|g>");
+      if (!rest[0] || !["a", "b", "c", "d", "e"].includes(rest[0])) {
+        error("Usage: show <a|b|c|d|e>");
       }
       show(rest[0] as FileKey);
       break;

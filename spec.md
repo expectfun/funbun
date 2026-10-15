@@ -16,7 +16,7 @@ The files and the script are stored in one folder called "fun", shell aliases/fu
 - b.md — backlog (non-critical tasks)
 - c.md — completed tasks (tasks from a.md and b.md get here after completion)
 - d.md — deleted tasks (tasks from a.md and b.md get here if they are discarded)
-- g.md — global goals (tasks are derived from them by the user)
+- e.md — global goals ("ends") (tasks are derived from them by the user)
 - fun (possibly with some extension like .sh, .py or .ts) — the script itself
 
 
@@ -53,9 +53,9 @@ Full list of shell aliases/functions and the script functionality they invoke:
 
 1. Alias "fun" should call the script itself in the default mode (no parameters). In that case the script should show a help page, informing about the functions it has and the aliases mapped to them. Also, it should check what shell is currently used. If it is not zsh or bash, the script should show a warning above that help page that the current environment is considered non-standard and the script might require some tweaking to be working to the full extent. If the shell is zsh or bash, the script should check whether its config file (.zshrc or .bashrc correspondingly) contains the "## funbun" line and whether the folder with the fun.ts script contains the project Markdown files. If something of that is missing, the script should show a warning above the page, stating that the project seems to be not initialized yet, and informing that it can be done by running the script with the "init" parameter.
 
-2. A letter corresponding to a file ("a" corresponds to "a.md", and so on with letters b, c, d, g) with no argument: outputs the content of the corresponding file, adding some formatting to make it more informative and better looking (showing line numbers, adding a heading, changing the UNIX timestamps into human-readable dates, and possibly more).
+2. A letter corresponding to a file ("a" corresponds to "a.md", and so on with letters b, c, d, e) with no argument: outputs the content of the corresponding file, adding some formatting to make it more informative and better looking (showing line numbers, adding a heading, changing the UNIX timestamps into human-readable dates, and possibly more).
 
-3. A letter corresponding to a file, immediately preceded by "f" ("fa", "fb", "fc", "fd", "fg"): opens the corresponding file in vim, using the script is not required
+3. A letter corresponding to a file, immediately preceded by "f" ("fa", "fb", "fc", "fd", "fe"): opens the corresponding file in vim, using the script is not required
 
 4. A letter "a" or "b" followed by some arguments after a space: it takes those arguments as a task title and adds to a new line in the corresponding file (a.md or b.md) with an indicator showing the incomplete status.
 
@@ -74,7 +74,7 @@ Full list of shell aliases/functions and the script functionality they invoke:
 
 ## Output examples
 
-### Showing a file (a, b, c, d, g)
+### Showing a file (a, b, c, d, e)
 
 Header showing the file's purpose, then numbered lines with formatted tasks:
 
@@ -158,13 +158,13 @@ Error messages:
 alias fun='bun ~/path/to/fun.ts'
 alias a='bun ~/path/to/fun.ts show a'
 alias fa='vim ~/path/to/a.md'
-# ... etc for b, c, d, g
+# ... etc for b, c, d, e
 a() { [[ $# -eq 0 ]] && bun ~/path/to/fun.ts show a || bun ~/path/to/fun.ts add a "$@"; }
 b() { [[ $# -eq 0 ]] && bun ~/path/to/fun.ts show b || bun ~/path/to/fun.ts add b "$@"; }
 c() { [[ $# -eq 0 ]] && bun ~/path/to/fun.ts show c || bun ~/path/to/fun.ts complete "$@"; }
 d() { [[ $# -eq 0 ]] && bun ~/path/to/fun.ts show d || bun ~/path/to/fun.ts delete "$@"; }
 s() { [[ $# -eq 0 ]] && bun ~/path/to/fun.ts stats || bun ~/path/to/fun.ts split "$@"; }
-alias g='bun ~/path/to/fun.ts show g'
+alias e='bun ~/path/to/fun.ts show e'
 alias r='bun ~/path/to/fun.ts refresh'
 ```
 

@@ -44,7 +44,7 @@ This creates the task files and adds aliases to your shell config.
 | b.md | Backlog |
 | c.md | Completed tasks |
 | d.md | Deleted tasks |
-| g.md | Goals (reference) |
+| e.md | Goals ("ends") |
 | spec.md | Detailed specification |
 
 ## Commands
@@ -55,8 +55,8 @@ This creates the task files and adds aliases to your shell config.
 | `b` | Show backlog |
 | `c` | Show completed |
 | `d` | Show deleted |
-| `g` | Show goals |
-| `fa` `fb` `fc` `fd` `fg` | Edit file in vim |
+| `e` | Show goals |
+| `fa` `fb` `fc` `fd` `fe` | Edit file in vim |
 | `a <title>` | Add task to active |
 | `b <title>` | Add task to backlog |
 | `c <n>` | Complete task n |
