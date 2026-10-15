@@ -38,6 +38,8 @@ This creates the task files and adds aliases to your shell config.
 
 ## File structure
 
+Task files (created by `init`, not tracked in git):
+
 | File | Purpose |
 |------|---------|
 | a.md | Active tasks (today) |
@@ -45,7 +47,14 @@ This creates the task files and adds aliases to your shell config.
 | c.md | Completed tasks |
 | d.md | Deleted tasks |
 | e.md | Goals ("ends") |
+
+Repo:
+
+| File | Purpose |
+|------|---------|
+| fun.ts | CLI script |
 | spec.md | Detailed specification |
+| skill/ | Claude Code skill for natural-language commands |
 
 ## Commands
 
