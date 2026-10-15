@@ -111,7 +111,7 @@ function show(fileKey: FileKey): void {
   });
 }
 
-function add(fileKey: "a" | "b", title: string): void {
+function add(fileKey: "a" | "b" | "e", title: string): void {
   const file = FILES[fileKey];
   if (!existsSync(file.path)) {
     error(`file not found: ${file.path} — run 'fun init'`);
@@ -335,7 +335,7 @@ b() { [[ $# -eq 0 ]] && bun ${scriptPath} show b || bun ${scriptPath} add b "$@"
 c() { [[ $# -eq 0 ]] && bun ${scriptPath} show c || bun ${scriptPath} complete "$@"; }
 d() { [[ $# -eq 0 ]] && bun ${scriptPath} show d || bun ${scriptPath} delete "$@"; }
 s() { [[ $# -eq 0 ]] && bun ${scriptPath} stats || bun ${scriptPath} split "$@"; }
-alias e='bun ${scriptPath} show e'
+e() { [[ $# -eq 0 ]] && bun ${scriptPath} show e || bun ${scriptPath} add e "$@"; }
 alias r='bun ${scriptPath} refresh'
 `;
 
@@ -355,7 +355,7 @@ Usage: bun fun.ts <command> [args]
 
 Commands:
   show <a|b|c|d|e>    Show tasks from file
-  add <a|b> <title>   Add task to active/backlog
+  add <a|b|e> <title> Add task to active/backlog/goals
   complete <n>        Mark task n as completed
   delete <n>          Delete task n
   stats               Show completion stats
@@ -368,6 +368,7 @@ Aliases (after init):
   fa, fb, fc, fd, fe  Edit in vim
   a <title>           Add to active
   b <title>           Add to backlog
+  e <title>           Add to goals
   c <n>               Complete task
   d <n>               Delete task
   s                   Show stats
@@ -418,10 +419,10 @@ async function main(): Promise<void> {
       break;
 
     case "add":
-      if (!rest[0] || !["a", "b"].includes(rest[0]) || rest.length < 2) {
-        error("Usage: add <a|b> <title>");
+      if (!rest[0] || !["a", "b", "e"].includes(rest[0]) || rest.length < 2) {
+        error("Usage: add <a|b|e> <title>");
       }
-      add(rest[0] as "a" | "b", rest.slice(1).join(" "));
+      add(rest[0] as "a" | "b" | "e", rest.slice(1).join(" "));
       break;
 
     case "complete":

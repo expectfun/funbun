@@ -59,6 +59,7 @@ This creates the task files and adds aliases to your shell config.
 | `fa` `fb` `fc` `fd` `fe` | Edit file in vim |
 | `a <title>` | Add task to active |
 | `b <title>` | Add task to backlog |
+| `e <title>` | Add goal |
 | `c <n>` | Complete task n |
 | `d <n>` | Delete task n |
 | `s` | Show stats |

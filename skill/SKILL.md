@@ -16,6 +16,7 @@ description: Управление личным списком задач FunBun 
 - Показать цели: `bun ~/fun/fun.ts show e`
 - Добавить в active: `bun ~/fun/fun.ts add a "<title>"`
 - Добавить в backlog: `bun ~/fun/fun.ts add b "<title>"`
+- Добавить в цели: `bun ~/fun/fun.ts add e "<title>"`
 - Завершить задачу: `bun ~/fun/fun.ts complete <N>`
 - Удалить задачу: `bun ~/fun/fun.ts delete <N>`
 - Показать статистику: `bun ~/fun/fun.ts stats`
@@ -36,6 +37,7 @@ description: Управление личным списком задач FunBun 
 
 - "добавь в активные купить молоко" -> `add a "buy milk"`
 - "закинь в бэклог идею про лендинг" -> `add b "landing idea"`
+- "добавь в цели спорт" -> `add e "sport"`
 - "закрой третью" -> `complete 3`
 - "удали задачу номер 5" -> `delete 5`
 - "покажи что на сегодня" -> `show a`

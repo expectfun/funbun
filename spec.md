@@ -164,7 +164,7 @@ b() { [[ $# -eq 0 ]] && bun ~/path/to/fun.ts show b || bun ~/path/to/fun.ts add 
 c() { [[ $# -eq 0 ]] && bun ~/path/to/fun.ts show c || bun ~/path/to/fun.ts complete "$@"; }
 d() { [[ $# -eq 0 ]] && bun ~/path/to/fun.ts show d || bun ~/path/to/fun.ts delete "$@"; }
 s() { [[ $# -eq 0 ]] && bun ~/path/to/fun.ts stats || bun ~/path/to/fun.ts split "$@"; }
-alias e='bun ~/path/to/fun.ts show e'
+e() { [[ $# -eq 0 ]] && bun ~/path/to/fun.ts show e || bun ~/path/to/fun.ts add e "$@"; }
 alias r='bun ~/path/to/fun.ts refresh'
 ```
 
