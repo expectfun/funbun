@@ -219,9 +219,9 @@ function stats(): void {
   console.log("──────────────────────────");
 }
 
-async function split(lineNum: number): Promise<void> {
-  const aPath = FILES.a.path;
-  const lines = readLines(aPath);
+async function split(lineNum: number, fileKey: "a" | "b" | "e" = "a"): Promise<void> {
+  const filePath = FILES[fileKey].path;
+  const lines = readLines(filePath);
 
   if (lineNum < 1 || lineNum > lines.length) {
     error(`task ${lineNum} not found`);
@@ -264,7 +264,7 @@ async function split(lineNum: number): Promise<void> {
   // Replace original task with subtasks
   const newTasks = subtasks.map((sub) => `- [ ] ${task.title}: ${sub}`);
   lines.splice(idx, 1, ...newTasks);
-  writeLines(aPath, lines);
+  writeLines(filePath, lines);
 
   console.log(`Added ${subtasks.length} subtask${subtasks.length !== 1 ? "s" : ""}.`);
 }
@@ -359,7 +359,7 @@ Commands:
   complete <n>        Mark task n as completed
   delete <n>          Delete task n
   stats               Show completion stats
-  split <n>           Decompose task n into subtasks
+  split [a|b|e] <n>   Decompose task n into subtasks (default: a)
   refresh             Remove completed tasks from active
   init                Initialize files and shell aliases
 
@@ -372,7 +372,7 @@ Aliases (after init):
   c <n>               Complete task
   d <n>               Delete task
   s                   Show stats
-  s <n>               Decompose task
+  s [a|b|e] <n>       Decompose task
   r                   Refresh active list
 `);
 }
@@ -443,12 +443,14 @@ async function main(): Promise<void> {
       stats();
       break;
 
-    case "split":
+    case "split": {
+      const splitKey = ["a", "b", "e"].includes(rest[0]) ? (rest.shift() as "a" | "b" | "e") : "a";
       if (!rest[0] || isNaN(parseInt(rest[0], 10))) {
-        error("Usage: split <n>");
+        error("Usage: split [a|b|e] <n>");
       }
-      await split(parseInt(rest[0], 10));
+      await split(parseInt(rest[0], 10), splitKey);
       break;
+    }
 
     case "refresh":
       refresh();

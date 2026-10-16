@@ -72,7 +72,8 @@ Repo:
 | `c <n>` | Complete task n |
 | `d <n>` | Delete task n |
 | `s` | Show stats |
-| `s <n>` | Decompose task n into subtasks |
+| `s <n>` | Decompose active task n into subtasks |
+| `s b <n>` / `s e <n>` | Decompose backlog item / goal n |
 | `r` | Refresh (clear completed from active) |
 
 ## Forking this
