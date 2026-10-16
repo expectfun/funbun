@@ -14,8 +14,8 @@ The files and the script are stored in one folder called "fun", shell aliases/fu
 
 - a.md — active tasks (what should be done today)
 - b.md — backlog (non-critical tasks)
-- c.md — completed tasks (tasks from a.md and b.md get here after completion)
-- d.md — deleted tasks (tasks from a.md and b.md get here if they are discarded)
+- c.md — completed tasks (tasks from a.md, b.md and e.md get here after completion)
+- d.md — deleted tasks (tasks from a.md, b.md and e.md get here if they are discarded)
 - e.md — global goals ("ends") (tasks are derived from them by the user)
 - fun (possibly with some extension like .sh, .py or .ts) — the script itself
 
@@ -59,7 +59,7 @@ Full list of shell aliases/functions and the script functionality they invoke:
 
 4. A letter "a" or "b" followed by some arguments after a space: it takes those arguments as a task title and adds to a new line in the corresponding file (a.md or b.md) with an indicator showing the incomplete status.
 
-5. A letter "c" or "d" followed by a number after a space: it should search for the task with corresponding line number in a.md to mark it completed/deleted accordingly. It means appending the task to the corresponding file (c.md or d.md) with the timestamp of that action added to the end of the line, and also manipulating the a.md: in the case of completion a task its indicator changes to "completed" in a.md (no adding timestamp), in the case of deletion this line gets deleted from a.md.
+5. A letter "c" or "d" followed by a number after a space: it should search for the task with corresponding line number in a.md to mark it completed/deleted accordingly. It means appending the task to the corresponding file (c.md or d.md) with the timestamp of that action added to the end of the line, and also manipulating the a.md: in the case of completion a task its indicator changes to "completed" in a.md (no adding timestamp), in the case of deletion this line gets deleted from a.md. Optionally, a file letter (b or e) can go before the number ("c b 2", "d e 1") to complete/delete a task from b.md or e.md instead; in that case the line is removed from that file right away in both cases, since refresh only cleans a.md.
 
 6. A letter "s" with no argument: shows nicely formatted and motivating stats: the total number of tasks completed today, based on the timestamps; a total number of completed tasks; the total number of active tasks; a "streak" showing the number of days in a row at least one task was done; and list of the task titles done today. It should be formatted nicely, with the streak number highlighted in any way possible.
 

@@ -121,10 +121,10 @@ function add(fileKey: "a" | "b" | "e", title: string): void {
   console.log(`Added to ${fileKey}.md: ${title}`);
 }
 
-function complete(lineNum: number): void {
-  const aPath = FILES.a.path;
+function complete(lineNum: number, fileKey: "a" | "b" | "e" = "a"): void {
+  const filePath = FILES[fileKey].path;
   const cPath = FILES.c.path;
-  const lines = readLines(aPath);
+  const lines = readLines(filePath);
 
   if (lineNum < 1 || lineNum > lines.length) {
     error(`task ${lineNum} not found`);
@@ -138,17 +138,21 @@ function complete(lineNum: number): void {
   const completedLine = `- [x] ${task.title} ${timestamp}\n`;
   appendFileSync(cPath, completedLine);
 
-  // Mark as completed in a.md (change checkbox)
-  lines[idx] = `- [x] ${task.title}`;
-  writeLines(aPath, lines);
+  // Mark as completed in a.md (cleared by refresh); remove from b.md/e.md right away
+  if (fileKey === "a") {
+    lines[idx] = `- [x] ${task.title}`;
+  } else {
+    lines.splice(idx, 1);
+  }
+  writeLines(filePath, lines);
 
   console.log(`Completed: ${task.title}`);
 }
 
-function deleteTask(lineNum: number): void {
-  const aPath = FILES.a.path;
+function deleteTask(lineNum: number, fileKey: "a" | "b" | "e" = "a"): void {
+  const filePath = FILES[fileKey].path;
   const dPath = FILES.d.path;
-  const lines = readLines(aPath);
+  const lines = readLines(filePath);
 
   if (lineNum < 1 || lineNum > lines.length) {
     error(`task ${lineNum} not found`);
@@ -162,9 +166,9 @@ function deleteTask(lineNum: number): void {
   const deletedLine = `- [x] ${task.title} ${timestamp}\n`;
   appendFileSync(dPath, deletedLine);
 
-  // Remove from a.md
+  // Remove from source file
   lines.splice(idx, 1);
-  writeLines(aPath, lines);
+  writeLines(filePath, lines);
 
   console.log(`Deleted: ${task.title}`);
 }
@@ -356,8 +360,8 @@ Usage: bun fun.ts <command> [args]
 Commands:
   show <a|b|c|d|e>    Show tasks from file
   add <a|b|e> <title> Add task to active/backlog/goals
-  complete <n>        Mark task n as completed
-  delete <n>          Delete task n
+  complete [a|b|e] <n> Mark task n as completed (default: a)
+  delete [a|b|e] <n>  Delete task n (default: a)
   stats               Show completion stats
   split [a|b|e] <n>   Decompose task n into subtasks (default: a)
   refresh             Remove completed tasks from active
@@ -369,8 +373,8 @@ Aliases (after init):
   a <title>           Add to active
   b <title>           Add to backlog
   e <title>           Add to goals
-  c <n>               Complete task
-  d <n>               Delete task
+  c [a|b|e] <n>       Complete task
+  d [a|b|e] <n>       Delete task
   s                   Show stats
   s [a|b|e] <n>       Decompose task
   r                   Refresh active list
@@ -425,19 +429,23 @@ async function main(): Promise<void> {
       add(rest[0] as "a" | "b" | "e", rest.slice(1).join(" "));
       break;
 
-    case "complete":
+    case "complete": {
+      const completeKey = ["a", "b", "e"].includes(rest[0]) ? (rest.shift() as "a" | "b" | "e") : "a";
       if (!rest[0] || isNaN(parseInt(rest[0], 10))) {
-        error("Usage: complete <n>");
+        error("Usage: complete [a|b|e] <n>");
       }
-      complete(parseInt(rest[0], 10));
+      complete(parseInt(rest[0], 10), completeKey);
       break;
+    }
 
-    case "delete":
+    case "delete": {
+      const deleteKey = ["a", "b", "e"].includes(rest[0]) ? (rest.shift() as "a" | "b" | "e") : "a";
       if (!rest[0] || isNaN(parseInt(rest[0], 10))) {
-        error("Usage: delete <n>");
+        error("Usage: delete [a|b|e] <n>");
       }
-      deleteTask(parseInt(rest[0], 10));
+      deleteTask(parseInt(rest[0], 10), deleteKey);
       break;
+    }
 
     case "stats":
       stats();

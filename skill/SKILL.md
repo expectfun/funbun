@@ -17,8 +17,9 @@ description: Управление личным списком задач FunBun 
 - Добавить в active: `bun ~/fun/fun.ts add a "<title>"`
 - Добавить в backlog: `bun ~/fun/fun.ts add b "<title>"`
 - Добавить в цели: `bun ~/fun/fun.ts add e "<title>"`
-- Завершить задачу: `bun ~/fun/fun.ts complete <N>`
-- Удалить задачу: `bun ~/fun/fun.ts delete <N>`
+- Завершить задачу: `bun ~/fun/fun.ts complete <N>` (active)
+- Удалить задачу: `bun ~/fun/fun.ts delete <N>` (active)
+- Завершить/удалить из backlog или целей: `complete b <N>` / `complete e <N>`, `delete b <N>` / `delete e <N>` (номер — строка в соответствующем списке; строка сразу убирается из b.md/e.md)
 - Показать статистику: `bun ~/fun/fun.ts stats`
 - Разбить задачу: `bun ~/fun/fun.ts split <N>` (active)
 - Разбить цель / задачу из backlog: `bun ~/fun/fun.ts split e <N>` / `split b <N>`
@@ -41,6 +42,8 @@ description: Управление личным списком задач FunBun 
 - "добавь в цели спорт" -> `add e "sport"`
 - "закрой третью" -> `complete 3`
 - "удали задачу номер 5" -> `delete 5`
+- "закрой вторую из бэклога" -> `complete b 2`
+- "удали первую цель" -> `delete e 1`
 - "покажи что на сегодня" -> `show a`
 - "стату" -> `stats`
 - "почисти выполненные" -> `refresh`

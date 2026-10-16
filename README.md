@@ -69,8 +69,10 @@ Repo:
 | `a <title>` | Add task to active |
 | `b <title>` | Add task to backlog |
 | `e <title>` | Add goal |
-| `c <n>` | Complete task n |
-| `d <n>` | Delete task n |
+| `c <n>` | Complete active task n |
+| `d <n>` | Delete active task n |
+| `c b <n>` / `c e <n>` | Complete backlog item / goal n |
+| `d b <n>` / `d e <n>` | Delete backlog item / goal n |
 | `s` | Show stats |
 | `s <n>` | Decompose active task n into subtasks |
 | `s b <n>` / `s e <n>` | Decompose backlog item / goal n |
